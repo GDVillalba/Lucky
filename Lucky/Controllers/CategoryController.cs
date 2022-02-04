@@ -22,5 +22,21 @@ namespace Lucky.Controllers
             IEnumerable<Category> objList = _db.Categories;
             return View(objList);
         }
+
+        //GET - CREATE
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        //POSt - CREATE
+       [HttpPost]
+       [ValidateAntiForgeryToken]
+        public IActionResult Create(Category obj)
+        {
+            _db.Categories.Add(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
