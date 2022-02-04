@@ -34,9 +34,13 @@ namespace Lucky.Controllers
        [ValidateAntiForgeryToken]
         public IActionResult Create(Category obj)
         {
-            _db.Categories.Add(obj);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            if(ModelState.IsValid)          //server side model values validation
+            {
+                _db.Categories.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(obj);       //if error occurs return view with obj data
         }
     }
 }
