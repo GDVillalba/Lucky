@@ -74,5 +74,41 @@ namespace Lucky.Controllers
             }
             return View(obj);       //if error occurs return view with obj data
         }
+
+        //GET - DELETE
+        public IActionResult Delete(int? id)  //el ? significa que puede ser null
+        {
+            if (id == null || id < 1)
+            {
+                return NotFound();
+            }
+
+            var obj = _db.Categories.Find(id);  // Find solo sirve para traer con la clave primaria
+
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
+
+        //POSt - DELETE
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePost(int? id)
+        {
+            var obj = _db.Categories.Find(id);  // Find solo sirve para traer con la clave primaria
+
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            _db.Categories.Remove(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+            
+        }
     }
 }
