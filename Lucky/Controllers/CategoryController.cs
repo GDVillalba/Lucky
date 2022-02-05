@@ -42,5 +42,37 @@ namespace Lucky.Controllers
             }
             return View(obj);       //if error occurs return view with obj data
         }
+
+        //GET - Edit
+        public IActionResult Edit(int? id)  //el ? significa que puede ser null
+        {
+            if(id == null || id < 1)
+            {
+                return NotFound();
+            }
+
+            var obj = _db.Categories.Find(id);  // Find solo sirve para traer con la clave primaria
+
+            if ( obj == null )
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
+
+        //POSt - Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Category obj)
+        {
+            if (ModelState.IsValid)          //server side model values validation
+            {
+                _db.Categories.Update(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(obj);       //if error occurs return view with obj data
+        }
     }
 }
