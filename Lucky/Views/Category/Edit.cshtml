@@ -3,7 +3,7 @@
 
 <form method="post">
 
-    <input asp-for="Id" hidden />
+    <input asp-for="Id" hidden />   @* Necesito el id pero no tiene que ser visible *@
 
     <div class="border box-shadow rounded p-3">
 
@@ -40,7 +40,9 @@
                             <input type="submit" class="btn btn-info w-100" value="Update" />
                         </div>
                         <div class="col">
-                            <a asp-action="Index" class="btn btn-success w-100">Back</a>
+                            <a asp-action="Index" class="btn btn-success w-100">
+                                <i class="fas fa-sign-out-alt"></i> &nbsp; Back
+                            </a>
                         </div>
 
                     </div>
